@@ -1,7 +1,7 @@
 {
   "main.css": "/six-corners/static/css/main.32963dc1.chunk.css",
-  "main.js": "/six-corners/static/js/main.5bb024c2.chunk.js",
-  "main.js.map": "/six-corners/static/js/main.5bb024c2.chunk.js.map",
+  "main.js": "/six-corners/static/js/main.1217e8ae.chunk.js",
+  "main.js.map": "/six-corners/static/js/main.1217e8ae.chunk.js.map",
   "static/js/1.3fd1d6e5.chunk.js": "/six-corners/static/js/1.3fd1d6e5.chunk.js",
   "static/js/1.3fd1d6e5.chunk.js.map": "/six-corners/static/js/1.3fd1d6e5.chunk.js.map",
   "static/js/2.4d9a3947.chunk.js": "/six-corners/static/js/2.4d9a3947.chunk.js",
@@ -10,6 +10,6 @@
   "runtime~main.js.map": "/six-corners/static/js/runtime~main.ec825871.js.map",
   "static/css/main.32963dc1.chunk.css.map": "/six-corners/static/css/main.32963dc1.chunk.css.map",
   "index.html": "/six-corners/index.html",
-  "precache-manifest.73be8bacb9d8d800495c8b3f9d2e0c20.js": "/six-corners/precache-manifest.73be8bacb9d8d800495c8b3f9d2e0c20.js",
+  "precache-manifest.95c0b6f92bc3d2c4d6880c00337c484b.js": "/six-corners/precache-manifest.95c0b6f92bc3d2c4d6880c00337c484b.js",
   "service-worker.js": "/six-corners/service-worker.js"
 }
