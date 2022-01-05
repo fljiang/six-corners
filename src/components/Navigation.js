@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
     Nav,
     Navbar
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 class Navigation extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class Navigation extends Component {
                 let corner = Math.floor((Math.random() * 6) + 1);
                 // this.props.setCounter(counter);
                 console.log(corner);
-            }, 2000 * i);
+            }, 3000 * i);
         }
     }
 
