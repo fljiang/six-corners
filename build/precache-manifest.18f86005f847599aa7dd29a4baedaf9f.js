@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/six-corners/static/js/runtime~main.ec825871.js"
   },
   {
-    "revision": "ccef0ff44609564ac894c103d3ffdea8",
+    "revision": "2009a26e09974e31640330b88be0078e",
     "url": "/six-corners/index.html"
   }
 ];
