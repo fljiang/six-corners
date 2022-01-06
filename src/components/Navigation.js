@@ -3,23 +3,31 @@ import {
     Nav,
     Navbar
 } from "react-bootstrap";
+import { connect } from "react-redux";
+import { setCorner } from "../redux/actions";
 
 class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            timer: 0,
-            inc: 0 
+            inc: 3000 
         }
     }
 
     handleStart = () => {
-        for (let i = 1; i < 100; i++) {
+        const {
+            inc
+        } = this.state;
+
+        const totalTime = 120000;
+        const n = Math.floor(totalTime / inc);
+
+        for (let i = 0; i < n; i++) {
             setTimeout(() => {
-                let corner = Math.floor((Math.random() * 6) + 1);
-                // this.props.setCounter(counter);
+                const corner = Math.floor((Math.random() * 6) + 1);
+                this.props.setCorner(corner);
                 console.log(corner);
-            }, 3000 * i);
+            }, inc * i);
         }
     }
 
@@ -33,4 +41,8 @@ class Navigation extends Component {
     }
 }
 
-export default Navigation;
+const mapDispatchToProps = {
+    setCorner: setCorner
+};
+  
+export default connect(null, mapDispatchToProps)(Navigation);

@@ -1,29 +1,44 @@
 import React, { Component } from "react";
 import Button from "@mui/material/Button";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 class CornerDisplay extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            corner: 0,
-        }
+    }
+
+    handleStop() {
+        console.log("here");
     }
 
     render() {
         const {
             corner
-        } = this.state;
+        } = this.props;
 
         return (
-            <NewButton sx={{ backgroundColor: "blue" }}>corner</NewButton>
+            <NewButton 
+                sx={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    fontSize: 50
+                }} 
+                onClick={this.handleStop}
+            >
+                {corner}
+            </NewButton>
         )
     }
 }
 
 const NewButton= styled(Button)`
   width: 80%;
-  height: 200px;
+  height: 100px;
 `;
 
-export default CornerDisplay
+const mapStateToProps = (state) => ({
+    corner: state.corner
+});
+
+export default connect(mapStateToProps, null)(CornerDisplay);
