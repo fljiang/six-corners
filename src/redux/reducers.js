@@ -1,5 +1,6 @@
 const initialState = {
-    corner: 0
+    corner: 0,
+    on: true
 }
 
 export default (state = initialState, action) => {

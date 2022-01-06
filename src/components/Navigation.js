@@ -26,7 +26,11 @@ class Navigation extends Component {
             setTimeout(() => {
                 const corner = Math.floor((Math.random() * 6) + 1);
                 this.props.setCorner(corner);
-                console.log(corner);
+
+                // Flash
+                setTimeout(() => {
+                    this.props.setCorner("");
+                }, inc - 500);
             }, inc * i);
         }
     }
