@@ -20,11 +20,10 @@ class CornerDisplay extends Component {
         return (
             <NewButton 
                 sx={{
-                    backgroundColor: "blue",
-                    color: "white",
+                    backgroundColor: "whitesmoke",
                     fontSize: 50
                 }} 
-                onClick={this.handleStop}
+                disabled={true}
             >
                 {corner}
             </NewButton>
