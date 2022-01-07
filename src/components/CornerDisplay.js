@@ -21,9 +21,9 @@ class CornerDisplay extends Component {
             <NewButton 
                 sx={{
                     backgroundColor: "whitesmoke",
+                    color: "black",
                     fontSize: 50
                 }} 
-                disabled={true}
             >
                 {corner}
             </NewButton>
