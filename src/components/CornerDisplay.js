@@ -14,7 +14,7 @@ class CornerDisplay extends Component {
 
     render() {
         const {
-            corner,
+            corner
         } = this.props;
 
         return (

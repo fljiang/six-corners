@@ -6,20 +6,17 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import { setCorner } from "../redux/actions";
+import { setInterval } from "../redux/actions";
 
 class Navigation extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            interval: 3000 
-        }
     }
 
     handleStart = () => {
         const {
             interval
-        } = this.state;
-
+        } = this.props;
         const totalTime = 120000;
         const n = Math.floor(totalTime / interval);
 
@@ -36,8 +33,9 @@ class Navigation extends Component {
         }
     }
 
-    handleIntervalChange = (n) => {
-        console.log(n);
+    handleIntervalChange = (interval) => {
+        interval = interval * 1000;
+        this.props.setInterval(interval);
     }
 
     render() {
@@ -46,20 +44,35 @@ class Navigation extends Component {
                 <Navbar.Brand href="#home">Six Corners</Navbar.Brand>
                 <Nav.Link onClick={this.handleStart}>Start</Nav.Link>
                 <NavDropdown title="Intervals">
-                    <NavDropdown.Item onClick={this.handleIntervalChange(0.5)}>0.5</NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.handleIntervalChange(0.6)}>0.6</NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.handleIntervalChange(0.7)}>0.7</NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.handleIntervalChange(0.8)}>0.8</NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.handleIntervalChange(0.9)}>0.9</NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.handleIntervalChange(1)}>1</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() =>this.handleIntervalChange(0.5)}>0.5</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(0.6)}>0.6</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(0.7)}>0.7</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(0.8)}>0.8</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(0.9)}>0.9</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1)}>1</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.1)}>1.1</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.2)}>1.2</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.3)}>1.3</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.4)}>1.4</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.5)}>1.5</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.6)}>1.6</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.7)}>1.7</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.8)}>1.8</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(1.9)}>1.9</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => this.handleIntervalChange(2)}>2</NavDropdown.Item>
                 </NavDropdown>
             </Navbar>
         );
     }
 }
 
+const mapStateToProps = (state) => ({
+    interval: state.interval
+});
+
 const mapDispatchToProps = {
-    setCorner: setCorner
+    setCorner: setCorner,
+    setInterval: setInterval
 };
   
-export default connect(null, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -7,8 +7,16 @@ function* setCorner(action) {
     });
 }
 
+function* setInterval(action) {
+    yield put({
+        type: "INTERVAL_UPDATED",
+        interval: action.interval
+    });
+}
+
 function* appWatcher() {
     yield takeLatest("SET_CORNER", setCorner);
+    yield takeLatest("SET_INTERVAL", setInterval);
 }
   
 export default function* rootSaga() {
