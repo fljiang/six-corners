@@ -16,7 +16,7 @@ class CornerDisplay extends Component {
                 sx={{
                     backgroundColor: "whitesmoke",
                     color: "black",
-                    fontSize: 50
+                    fontSize: 300
                 }} 
             >
                 {corner}
@@ -27,7 +27,7 @@ class CornerDisplay extends Component {
 
 const NewButton= styled(Button)`
   width: 80%;
-  height: 100px;
+  height: 300px;
 `;
 
 const mapStateToProps = (state) => ({
