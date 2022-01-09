@@ -5,8 +5,11 @@ import {
     NavDropdown
 } from "react-bootstrap";
 import { connect } from "react-redux";
-import { setCorner } from "../redux/actions";
-import { setInterval } from "../redux/actions";
+import { 
+    setCorner,
+    setInterval,
+    setTimer
+ } from "../redux/actions";
 
 class Navigation extends Component {
     constructor(props) {
@@ -15,13 +18,27 @@ class Navigation extends Component {
 
     handleStart = () => {
         const {
-            interval
+            interval,
+            on
         } = this.props;
         const totalTime = 120000;
         const n = Math.floor(totalTime / interval);
 
+        if (on) {
+            this.resetAllEvents();
+            return;
+        }
+        else {
+            this.props.setTimer(true);
+        }
+
         for (let i = 0; i < n; i++) {
             setTimeout(() => {
+                const {on} = this.props;
+                if (!on) {
+                    this.resetAllEvents();
+                    return;
+                }
                 const corner = Math.floor((Math.random() * 6) + 1);
                 this.props.setCorner(corner);
 
@@ -36,6 +53,16 @@ class Navigation extends Component {
     handleIntervalChange = (interval) => {
         interval = interval * 1000;
         this.props.setInterval(interval);
+        this.resetAllEvents();
+    }
+
+    resetAllEvents() {
+        const highestTimeoutId = setTimeout(";");
+        for (let i = 0; i < highestTimeoutId; i++) {
+            clearTimeout(i);
+        }
+        this.props.setCorner(0);
+        this.props.setTimer(false);
     }
 
     render() {
@@ -67,12 +94,14 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    interval: state.interval
+    interval: state.interval,
+    on: state.on
 });
 
 const mapDispatchToProps = {
     setCorner: setCorner,
-    setInterval: setInterval
+    setInterval: setInterval,
+    setTimer, setTimer
 };
   
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

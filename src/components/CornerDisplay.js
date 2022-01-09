@@ -8,14 +8,8 @@ class CornerDisplay extends Component {
         super(props);
     }
 
-    handleStop() {
-        console.log("here");
-    }
-
     render() {
-        const {
-            corner
-        } = this.props;
+        const {corner} = this.props;
 
         return (
             <NewButton 

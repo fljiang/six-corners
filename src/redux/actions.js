@@ -11,3 +11,10 @@ export const setInterval = (interval) => {
         interval
     }
 }
+
+export const setTimer = (on) => {
+    return {
+        type: "SET_TIMER",
+        on
+    }
+}

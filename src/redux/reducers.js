@@ -1,7 +1,7 @@
 const initialState = {
     corner: 0,
     interval: 2000,
-    on: true
+    on: false
 }
 
 export default (state = initialState, action) => {
@@ -15,6 +15,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 interval: action.interval
+            }
+        case "TIMER_UPDATED":
+            return {
+                ...state,
+                on: action.on
             }
     default:
           return state;
