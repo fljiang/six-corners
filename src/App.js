@@ -6,21 +6,21 @@ import CornerDisplay from "./components/CornerDisplay";
 import styled from "styled-components";
 
 class App extends Component {
-  render() {
-    return (
-      <NewContainer id="app">
-        <Navigation></Navigation>
-        <CornerDisplay></CornerDisplay>
-      </NewContainer>
-    );
-  }
+    render() {
+        return (
+            <NewContainer id="app">
+                <Navigation></Navigation>
+                <CornerDisplay></CornerDisplay>
+            </NewContainer>
+        );
+    }
 }
 
 const NewContainer = styled(Container)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
 `;
 
 export default App;
