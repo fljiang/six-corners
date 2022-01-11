@@ -18,3 +18,16 @@ export const setTimer = (on) => {
         on
     }
 }
+
+export const setTotalTime = (totalTime) => {
+    return {
+        type: "SET_TOTAL_TIME",
+        totalTime
+    }
+}
+
+export const resetAllEvents = () => {
+    return {
+        type: "RESET_ALL_EVENTS"
+    }
+}

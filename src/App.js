@@ -17,10 +17,10 @@ class App extends Component {
 }
 
 const NewContainer = styled(Container)`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 `;
 
 export default App;

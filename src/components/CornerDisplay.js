@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import Button from "@mui/material/Button";
 import { connect } from "react-redux";
+import { resetAllEvents } from "../redux/actions";
 import styled from "styled-components";
 
 class CornerDisplay extends Component {
@@ -9,8 +10,13 @@ class CornerDisplay extends Component {
         super(props);
     }
 
+    handleStop = () => {
+        this.props.resetAllEvents();
+    }
+
+
     render() {
-        const {corner} = this.props;
+        const { corner } = this.props;
 
         return (
             <NewContainer id="display">
@@ -20,6 +26,7 @@ class CornerDisplay extends Component {
                         color: "black",
                         fontSize: 250
                     }} 
+                    onClick={ this.handleStop }
                 >
                     {corner}
                 </NewButton>
@@ -30,9 +37,9 @@ class CornerDisplay extends Component {
 
 const NewContainer = styled(Container)`
     width: 100%;
-    padding-top: 5%;
     display: flex;
     flex-direction: column;
+    padding-top: 5%;
     background-color: white;
 `;
 
@@ -44,4 +51,8 @@ const mapStateToProps = (state) => ({
     corner: state.corner
 });
 
-export default connect(mapStateToProps, null)(CornerDisplay);
+const mapDispatchToProps = {
+    resetAllEvents: resetAllEvents
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CornerDisplay);

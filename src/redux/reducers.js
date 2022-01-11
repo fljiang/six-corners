@@ -1,6 +1,7 @@
 const initialState = {
     corner: 0,
     interval: 2000,
+    totalTime: 120000,
     on: false
 }
 
@@ -20,6 +21,17 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 on: action.on
+            }
+        case "TOTAL_TIME_UPDATED":
+            return {
+                ...state,
+                totalTime: action.totalTime
+            }
+        case "ALL_EVENTS_RESET":
+            return {
+                ...state,
+                corner: 0,
+                on: false
             }
     default:
           return state;

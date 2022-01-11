@@ -21,10 +21,30 @@ function* setTimer(action) {
     });
 }
 
+function* setTotalTime(action) {
+    yield put({
+        type: "TOTAL_TIME_UPDATED",
+        totalTime: action.totalTime
+    });
+}
+
+function* resetAllEvents(action) {
+    const highestTimeoutId = setTimeout(";");
+    for (let i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i);
+    }
+    
+    yield put({
+        type: "ALL_EVENTS_RESET"
+    });
+}
+
 function* appWatcher() {
     yield takeLatest("SET_CORNER", setCorner);
     yield takeLatest("SET_INTERVAL", setInterval);
     yield takeLatest("SET_TIMER", setTimer);
+    yield takeLatest("SET_TOTAL_TIME", setTotalTime);
+    yield takeLatest("RESET_ALL_EVENTS", resetAllEvents);
 }
   
 export default function* rootSaga() {
