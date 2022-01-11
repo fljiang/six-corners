@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import {
-    Form, 
     FormControl,
     Nav,
     Navbar,
@@ -52,11 +51,16 @@ class Navigation extends Component {
 
                 // Flash
                 setTimeout(() => {
-                    this.props.setCorner("");
+                    if (i === n - 1) {
+                        this.props.resetAllEvents();
+                    }
+                    else {
+                        this.props.setCorner("");
+                    }
                 }, interval - 250);
             }, interval * i);
         }
-        // RESET CORNER AND TIMER TO 0 AFTER COMPLETION
+        
     }
 
     handleIntervalChange = (interval) => {
@@ -71,7 +75,7 @@ class Navigation extends Component {
         }
         const totalTime = parseInt(this.totalTimeRef.current.value) * 1000;
         this.props.setTotalTime(totalTime);
-        this.forceUpdate();
+        this.props.resetAllEvents();
     }
 
     render() {
