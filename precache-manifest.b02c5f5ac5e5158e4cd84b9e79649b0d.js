@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "9d358cf7675c8afeec5e",
+    "revision": "c3c6d42cfc1302e41d11",
     "url": "/six-corners/static/css/main.3aa121f9.chunk.css"
   },
   {
-    "revision": "9d358cf7675c8afeec5e",
-    "url": "/six-corners/static/js/main.8581aa8d.chunk.js"
+    "revision": "c3c6d42cfc1302e41d11",
+    "url": "/six-corners/static/js/main.665b2b90.chunk.js"
   },
   {
     "revision": "6e8641f22f63cc4fce9f",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/six-corners/static/js/2.429cb29e.chunk.js"
   },
   {
-    "revision": "a70086407efc358e3182bc2d1b8903c8",
+    "revision": "30c8cd62a040451e11c48af826ae4052",
     "url": "/six-corners/index.html"
   }
 ];
