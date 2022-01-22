@@ -139,7 +139,6 @@ const TopNavbar = styled(Navbar)`
 
 const BottomNavbar = styled(Navbar)`
     width: 100%;
-    margin-top: -15px;
     border-bottom: 2px solid #eee;
 `;
 
