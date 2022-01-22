@@ -1,1 +1,1 @@
-https://fljiang.github.io/six-corners/
+Badminton footwork app
