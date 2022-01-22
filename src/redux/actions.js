@@ -18,17 +18,17 @@ export const setInterval = (interval) => {
     }
 }
 
-export const setTimer = (on) => {
+export const setTime = (time) => {
     return {
-        type: "SET_TIMER",
-        on
+        type: "SET_TIME",
+        time
     }
 }
 
-export const setTotalTime = (totalTime) => {
+export const startTimer = (on) => {
     return {
-        type: "SET_TOTAL_TIME",
-        totalTime
+        type: "START_TIMER",
+        on
     }
 }
 

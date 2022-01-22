@@ -39,12 +39,12 @@ const NewContainer = styled(Container)`
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 5%;
     background-color: white;
+    margin-top: 15px;
 `;
 
 const NewButton= styled(Button)`
-    width: 80%;
+    width: 100%;
 `;
 
 const mapStateToProps = (state) => ({

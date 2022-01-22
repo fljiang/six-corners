@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import {
     FormControl,
+    FormGroup,
     Nav,
     Navbar,
-    NavDropdown,
 } from "react-bootstrap";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import Button from "@mui/material/Button";
 import { connect } from "react-redux";
 import { 
     setCorner,
     setFourCorners,
     setInterval,
-    setTimer,
-    setTotalTime,
+    setTime,
+    startTimer,
     resetAllEvents
  } from "../redux/actions";
  import styled from "styled-components";
@@ -21,24 +23,25 @@ import {
 class Navigation extends Component {
     constructor(props) {
         super(props);
-        this.totalTimeRef = React.createRef();
+        this.intervalRef = React.createRef();
+        this.timeRef = React.createRef();
     }
 
     handleStart = () => {
         const {
             interval,
-            totalTime,
+            time,
             on,
             fourCorners
         } = this.props;
-        const n = Math.floor(totalTime / interval);
+        const n = Math.floor(time / interval);
 
         if (on) {
             this.props.resetAllEvents();
             return;
         }
         else {
-            this.props.setTimer(true);
+            this.props.startTimer(true);
         }
 
         for (let i = 0; i < n; i++) {
@@ -75,22 +78,26 @@ class Navigation extends Component {
         }
     }
 
-    handleIntervalChange = (interval) => {
-        interval = interval * 1000;
-        this.props.setInterval(interval);
-        this.props.resetAllEvents();
-    }
-
     handleFourCorners = () => {
-        this.props.setFourCorners();
+        const { fourCorners } = this.props;
+        this.props.setFourCorners(!fourCorners);
     }
 
-    handleCustomTime = () => {
-        if (!this.totalTimeRef) {
+    handleSettings = () => {
+        if (!this.totalTimeRef && !this.intervalRef) {
             return;
         }
-        const totalTime = parseInt(this.totalTimeRef.current.value) * 1000;
-        this.props.setTotalTime(totalTime);
+
+        if (this.intervalRef.current) {
+            const interval = parseInt(this.intervalRef.current.value) * 1000
+            this.props.setInterval(interval);
+        }
+        
+        if (this.timeRef.current) {
+            const time = parseInt(this.timeRef.current.value) * 1000;
+            this.props.setTime(time);
+        }
+
         this.props.resetAllEvents();
     }
 
@@ -101,32 +108,17 @@ class Navigation extends Component {
                     <Navbar.Brand href="#home">Six Corners</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Nav className="me-auto">
-                        <Nav.Link onClick={ this.handleStart }>Start</Nav.Link>
-                        <NavDropdown title="Intervals">
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(0.5) }>0.5</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(0.6) }>0.6</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(0.7) }>0.7</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(0.8) }>0.8</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(0.9) }>0.9</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1) }>1</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.1) }>1.1</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.2) }>1.2</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.3) }>1.3</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.4) }>1.4</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.5) }>1.5</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.6) }>1.6</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.7) }>1.7</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.8) }>1.8</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.9) }>1.9</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ () => this.handleIntervalChange(2) }>2</NavDropdown.Item>
-                        </NavDropdown>
-                        <Button onClick={ this.handleFourCorners }>4 Corners</Button>
+                        <NewNavLink onClick={ this.handleStart }>Start</NewNavLink>
+                        <NewFormGroup>
+                            <FormControlLabel control={<Switch onChange={ this.handleFourCorners }/>} label="4 Corners" />
+                        </NewFormGroup>
                     </Nav>
                 </TopNavbar>
                 <BottomNavbar>
                     <Nav>
-                        <NewFormControl type="text" placeholder="Total Time (Seconds)" ref={ this.totalTimeRef }/>
-                        <SubmitButton onClick={ this.handleCustomTime }>Submit</SubmitButton>
+                        <NewFormControl type="text" placeholder="Interval (s)" ref={ this.intervalRef }/>
+                        <NewFormControl type="text" placeholder="Time (s)" ref={ this.totalTimeRef }/>
+                        <SubmitButton onClick={ this.handleSettings }>Submit</SubmitButton>
                     </Nav>
                 </BottomNavbar>
             </NewContainer>
@@ -141,12 +133,22 @@ const NewContainer = styled(Container)`
 `;
 
 const TopNavbar = styled(Navbar)`
-    width: calc(15px + 100%);
+    width: 100%;
 `;
 
 const BottomNavbar = styled(Navbar)`
-    width: calc(15px + 100%);
+    width: 100%;
+    margin-top: -15px;
     border-bottom: 2px solid #eee;
+`;
+
+const NewNavLink = styled(Nav.Link)`
+    margin-right: 15px;
+    margin-top: 5px;
+`;
+
+const NewFormGroup = styled(FormGroup)`
+    margin-top: 5px;
 `;
 
 const NewFormControl = styled(FormControl)`
@@ -155,7 +157,8 @@ const NewFormControl = styled(FormControl)`
         box-shadow: none;
         border: 1px solid royalblue !important;
     }
-    width: 200px;
+    width: 110px;
+    margin-right: 15px;
 `;
 
 const SubmitButton = styled(Button)`
@@ -166,13 +169,11 @@ const SubmitButton = styled(Button)`
         color: white;
     }
     width: 100px;
-    margin-left: 5% !important;
-    margin-right: 5% !important;
 `;
 
 const mapStateToProps = (state) => ({
     interval: state.interval,
-    totalTime: state.totalTime,
+    time: state.time,
     on: state.on,
     fourCorners: state.fourCorners
 });
@@ -181,8 +182,8 @@ const mapDispatchToProps = {
     setCorner: setCorner,
     setFourCorners,
     setInterval: setInterval,
-    setTimer: setTimer,
-    setTotalTime: setTotalTime,
+    setTime: setTime,
+    startTimer: startTimer,
     resetAllEvents: resetAllEvents
 };
   
