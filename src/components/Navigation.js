@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { connect } from "react-redux";
 import { 
     setCorner,
+    setFourCorners,
     setInterval,
     setTimer,
     setTotalTime,
@@ -27,7 +28,8 @@ class Navigation extends Component {
         const {
             interval,
             totalTime,
-            on
+            on,
+            fourCorners
         } = this.props;
         const n = Math.floor(totalTime / interval);
 
@@ -46,21 +48,31 @@ class Navigation extends Component {
                     this.props.resetAllEvents();
                     return;
                 }
-                const corner = Math.floor((Math.random() * 6) + 1);
-                this.props.setCorner(corner);
+                
+                if (!fourCorners) {
+                    const corner = Math.floor((Math.random() * 6) + 1);
+                    this.props.setCorner(corner);
+                }
+                else {
+                    const corners = {
+                        1: 1,
+                        2: 2,
+                        3: 5,
+                        4: 6
+                    }
+                    const corner = Math.floor((Math.random() * 4) + 1);
+                    this.props.setCorner(corners[corner]);
+                }
 
                 // Flash
                 setTimeout(() => {
+                    this.props.setCorner("");
                     if (i === n - 1) {
                         this.props.resetAllEvents();
-                    }
-                    else {
-                        this.props.setCorner("");
                     }
                 }, interval - 250);
             }, interval * i);
         }
-        
     }
 
     handleIntervalChange = (interval) => {
@@ -69,7 +81,11 @@ class Navigation extends Component {
         this.props.resetAllEvents();
     }
 
-    submitCustomTime = () => {
+    handleFourCorners = () => {
+        this.props.setFourCorners();
+    }
+
+    handleCustomTime = () => {
         if (!this.totalTimeRef) {
             return;
         }
@@ -81,7 +97,7 @@ class Navigation extends Component {
     render() {
         return(
             <NewContainer>
-                <NewNavbar>
+                <TopNavbar>
                     <Navbar.Brand href="#home">Six Corners</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Nav className="me-auto">
@@ -104,12 +120,15 @@ class Navigation extends Component {
                             <NavDropdown.Item onClick={ () => this.handleIntervalChange(1.9) }>1.9</NavDropdown.Item>
                             <NavDropdown.Item onClick={ () => this.handleIntervalChange(2) }>2</NavDropdown.Item>
                         </NavDropdown>
+                        <Button onClick={ this.handleFourCorners }>4 Corners</Button>
                     </Nav>
+                </TopNavbar>
+                <BottomNavbar>
                     <Nav>
-                        <NewFormControl type="text" placeholder="() Seconds" ref={ this.totalTimeRef }/>
-                        <SubmitButton onClick={ this.submitCustomTime }>Submit</SubmitButton>
+                        <NewFormControl type="text" placeholder="Total Time (Seconds)" ref={ this.totalTimeRef }/>
+                        <SubmitButton onClick={ this.handleCustomTime }>Submit</SubmitButton>
                     </Nav>
-                </NewNavbar>
+                </BottomNavbar>
             </NewContainer>
         );
     }
@@ -118,10 +137,14 @@ class Navigation extends Component {
 const NewContainer = styled(Container)`
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
-const NewNavbar = styled(Navbar)`
+const TopNavbar = styled(Navbar)`
+    width: calc(15px + 100%);
+`;
+
+const BottomNavbar = styled(Navbar)`
     width: calc(15px + 100%);
     border-bottom: 2px solid #eee;
 `;
@@ -132,7 +155,7 @@ const NewFormControl = styled(FormControl)`
         box-shadow: none;
         border: 1px solid royalblue !important;
     }
-    width: 120px;
+    width: 200px;
 `;
 
 const SubmitButton = styled(Button)`
@@ -150,11 +173,13 @@ const SubmitButton = styled(Button)`
 const mapStateToProps = (state) => ({
     interval: state.interval,
     totalTime: state.totalTime,
-    on: state.on
+    on: state.on,
+    fourCorners: state.fourCorners
 });
 
 const mapDispatchToProps = {
     setCorner: setCorner,
+    setFourCorners,
     setInterval: setInterval,
     setTimer: setTimer,
     setTotalTime: setTotalTime,

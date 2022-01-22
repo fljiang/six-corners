@@ -2,7 +2,8 @@ const initialState = {
     corner: 0,
     interval: 2000,
     totalTime: 120000,
-    on: false
+    on: false,
+    fourCorners: false
 }
 
 export default (state = initialState, action) => {
@@ -11,6 +12,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 corner: action.corner
+            }
+        case "FOUR_CORNERS_UPDATED":
+            return {
+                ...state,
+                fourCorners: true
             }
         case "INTERVAL_UPDATED":
             return {

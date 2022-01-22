@@ -7,6 +7,12 @@ function* setCorner(action) {
     });
 }
 
+function* setFourCorners(action) {
+    yield put({
+        type: "FOUR_CORNERS_UPDATED",
+    });
+}
+
 function* setInterval(action) {
     yield put({
         type: "INTERVAL_UPDATED",
@@ -41,6 +47,7 @@ function* resetAllEvents(action) {
 
 function* appWatcher() {
     yield takeLatest("SET_CORNER", setCorner);
+    yield takeLatest("SET_FOUR_CORNERS", setFourCorners);
     yield takeLatest("SET_INTERVAL", setInterval);
     yield takeLatest("SET_TIMER", setTimer);
     yield takeLatest("SET_TOTAL_TIME", setTotalTime);

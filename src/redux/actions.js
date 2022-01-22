@@ -5,6 +5,12 @@ export const setCorner = (corner) => {
     }
 }
 
+export const setFourCorners = () => {
+    return {
+        type: "SET_FOUR_CORNERS",
+    }
+}
+
 export const setInterval = (interval) => {
     return {
         type: "SET_INTERVAL",
