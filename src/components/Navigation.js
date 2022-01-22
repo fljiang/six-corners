@@ -179,7 +179,7 @@ const SubmitButton = styled(Button)`
         background-color: royalblue !important;
         color: white;
     }
-    width: 100px;
+    width: 80px;
 `;
 
 const mapStateToProps = (state) => ({
