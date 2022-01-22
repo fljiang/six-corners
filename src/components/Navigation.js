@@ -81,6 +81,7 @@ class Navigation extends Component {
     handleFourCorners = () => {
         const { fourCorners } = this.props;
         this.props.setFourCorners(!fourCorners);
+        this.props.resetAllEvents();
     }
 
     handleSettings = () => {
