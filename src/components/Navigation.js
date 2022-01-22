@@ -116,8 +116,8 @@ class Navigation extends Component {
                 </TopNavbar>
                 <BottomNavbar>
                     <Nav>
-                        <NewFormControl type="text" placeholder="Interval (s)" ref={ this.intervalRef }/>
-                        <NewFormControl type="text" placeholder="Time (s)" ref={ this.totalTimeRef }/>
+                        <IntervalFormControl type="text" placeholder="Interval (s)" ref={ this.intervalRef } />
+                        <TimeFormControl type="text" placeholder="Time (s)" ref={ this.totalTimeRef } />
                         <SubmitButton onClick={ this.handleSettings }>Submit</SubmitButton>
                     </Nav>
                 </BottomNavbar>
@@ -148,16 +148,27 @@ const NewNavLink = styled(Nav.Link)`
 `;
 
 const NewFormGroup = styled(FormGroup)`
+    width: 200px;
     margin-top: 5px;
 `;
 
-const NewFormControl = styled(FormControl)`
+const IntervalFormControl = styled(FormControl)`
     box-sizing: border-box;
     &:hover, &:active, &:focus {
         box-shadow: none;
         border: 1px solid royalblue !important;
     }
-    width: 110px;
+    width: 105px;
+    margin-right: 15px;
+`;
+
+const TimeFormControl = styled(FormControl)`
+    box-sizing: border-box;
+    &:hover, &:active, &:focus {
+        box-shadow: none;
+        border: 1px solid royalblue !important;
+    }
+    width: 90px;
     margin-right: 15px;
 `;
 
