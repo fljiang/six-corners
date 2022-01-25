@@ -67,19 +67,35 @@ class CornerDisplay extends Component {
 
     render() {
         const { corner } = this.props;
+        let button;
+        if (corner == "start") {
+            button = <NewButton 
+                sx={{
+                    backgroundColor: "whitesmoke",
+                    color: "black",
+                    fontSize: 100
+                }} 
+                onClick={ this.handleStart }
+            >
+                {corner}
+            </NewButton>
+        }
+        else {
+            button = button = <NewButton 
+                sx={{
+                    backgroundColor: "whitesmoke",
+                    color: "black",
+                    fontSize: 250
+                }} 
+                onClick={ this.handleStart }
+            >
+                {corner}
+            </NewButton>
+        }
 
         return (
             <NewContainer id="display">
-                <NewButton 
-                    sx={{
-                        backgroundColor: "whitesmoke",
-                        color: "black",
-                        fontSize: 250
-                    }} 
-                    onClick={ this.handleStart }
-                >
-                    {corner}
-                </NewButton>
+                { button }
             </NewContainer>
         )
     }
@@ -95,6 +111,7 @@ const NewContainer = styled(Container)`
 
 const NewButton= styled(Button)`
     width: 100%;
+    height: 500px;
 `;
 
 const mapStateToProps = (state) => ({
