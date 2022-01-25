@@ -5,9 +5,10 @@ export const setCorner = (corner) => {
     }
 }
 
-export const setFourCorners = () => {
+export const setFourCorners = (fourCorners) => {
     return {
         type: "SET_FOUR_CORNERS",
+        fourCorners
     }
 }
 

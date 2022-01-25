@@ -1,5 +1,5 @@
 const initialState = {
-    corner: 0,
+    corner: "start",
     interval: 2000,
     time: 120000,
     on: false,
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         case "ALL_EVENTS_RESET":
             return {
                 ...state,
-                corner: 0,
+                corner: "start",
                 on: false
             }
     default:

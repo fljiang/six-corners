@@ -6,19 +6,16 @@ import {
     Nav,
     Navbar,
 } from "react-bootstrap";
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import Button from "@mui/material/Button";
+import Typography from '@mui/material/Typography';
 import { connect } from "react-redux";
 import { 
-    setCorner,
     setFourCorners,
     setInterval,
     setTime,
-    startTimer,
     resetAllEvents
- } from "../redux/actions";
- import styled from "styled-components";
+} from "../redux/actions";
+import styled from "styled-components";
 
 class Navigation extends Component {
     constructor(props) {
@@ -27,78 +24,29 @@ class Navigation extends Component {
         this.timeRef = React.createRef();
     }
 
-    handleStart = () => {
-        const {
-            interval,
-            time,
-            on,
-            fourCorners
-        } = this.props;
-        const n = Math.floor(time / interval);
-
-        if (on) {
-            this.props.resetAllEvents();
-            return;
-        }
-        else {
-            this.props.startTimer(true);
-        }
-
-        for (let i = 0; i < n; i++) {
-            setTimeout(() => {
-                const { on } = this.props;
-                if (!on) {
-                    this.props.resetAllEvents();
-                    return;
-                }
-                
-                if (!fourCorners) {
-                    const corner = Math.floor((Math.random() * 6) + 1);
-                    this.props.setCorner(corner);
-                }
-                else {
-                    const corners = {
-                        1: 1,
-                        2: 2,
-                        3: 5,
-                        4: 6
-                    }
-                    const corner = Math.floor((Math.random() * 4) + 1);
-                    this.props.setCorner(corners[corner]);
-                }
-
-                // Flash
-                setTimeout(() => {
-                    this.props.setCorner("");
-                    if (i === n - 1) {
-                        this.props.resetAllEvents();
-                    }
-                }, interval - 250);
-            }, interval * i);
-        }
-    }
-
     handleFourCorners = () => {
         const { fourCorners } = this.props;
         this.props.setFourCorners(!fourCorners);
         this.props.resetAllEvents();
     }
 
-    handleSettings = () => {
-        if (!this.totalTimeRef && !this.intervalRef) {
+    handleInterval = () => {
+        if (!this.intervalRef) {
             return;
         }
 
-        if (this.intervalRef.current) {
-            const interval = parseInt(this.intervalRef.current.value) * 1000
-            this.props.setInterval(interval);
+        const interval = parseInt(this.intervalRef.current.value) * 1000
+        this.props.setInterval(interval);
+        this.props.resetAllEvents();
+    }
+
+    handleTime = () => {
+        if (!this.timeRef) {
+            return;
         }
         
-        if (this.timeRef.current) {
-            const time = parseInt(this.timeRef.current.value) * 1000;
-            this.props.setTime(time);
-        }
-
+        const time = parseInt(this.timeRef.current.value) * 1000;
+        this.props.setTime(time);
         this.props.resetAllEvents();
     }
 
@@ -108,18 +56,20 @@ class Navigation extends Component {
                 <TopNavbar>
                     <Navbar.Brand href="#home">Six Corners</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Nav className="me-auto">
-                        <NewNavLink onClick={ this.handleStart }>Start</NewNavLink>
-                        <NewFormGroup>
-                            <FormControlLabel control={<Switch onChange={ this.handleFourCorners }/>} label="4 Corners" />
-                        </NewFormGroup>
+                    <Nav className="toggle">
+                        <FormGroup>
+                            <ToggleContainer>
+                                <LeftTypography>6</LeftTypography>
+                                <Switch onChange={ this.handleFourCorners } />
+                                <RightTypography>4</RightTypography>
+                            </ToggleContainer>
+                        </FormGroup>
                     </Nav>
                 </TopNavbar>
                 <BottomNavbar>
                     <Nav>
-                        <IntervalFormControl type="text" placeholder="Interval (s)" ref={ this.intervalRef } />
-                        <TimeFormControl type="text" placeholder="Time (s)" ref={ this.totalTimeRef } />
-                        <SubmitButton onClick={ this.handleSettings }>Submit</SubmitButton>
+                        <IntervalFormControl type="text" placeholder="Interval (s)" ref={ this.intervalRef } onChange={ this.handleInterval } />
+                        <TimeFormControl type="text" placeholder="Time (s)" ref={ this.timeRef } onChange={ this.handleTime } />
                     </Nav>
                 </BottomNavbar>
             </NewContainer>
@@ -133,6 +83,12 @@ const NewContainer = styled(Container)`
     flex-direction: column;
 `;
 
+const ToggleContainer = styled(Container)`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+`;
+
 const TopNavbar = styled(Navbar)`
     width: 100%;
 `;
@@ -142,14 +98,15 @@ const BottomNavbar = styled(Navbar)`
     border-bottom: 2px solid #eee;
 `;
 
-const NewNavLink = styled(Nav.Link)`
-    margin-right: 15px;
-    margin-top: 5px;
+const LeftTypography = styled(Typography)`
+    margin-top: 8px !important;
+    margin-left: -5px !important;
+    margin-right: 5px !important;
 `;
 
-const NewFormGroup = styled(FormGroup)`
-    width: 200px;
-    margin-top: 5px;
+const RightTypography = styled(Typography)`
+    margin-top: 8px !important;
+    margin-left: 5px !important;
 `;
 
 const IntervalFormControl = styled(FormControl)`
@@ -172,16 +129,6 @@ const TimeFormControl = styled(FormControl)`
     margin-right: 15px;
 `;
 
-const SubmitButton = styled(Button)`
-    color: royalblue;
-    border: 1px solid royalblue !important;
-    &:hover, &:active, &:focus {
-        background-color: royalblue !important;
-        color: white;
-    }
-    width: 80px;
-`;
-
 const mapStateToProps = (state) => ({
     interval: state.interval,
     time: state.time,
@@ -190,11 +137,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    setCorner: setCorner,
     setFourCorners,
     setInterval: setInterval,
     setTime: setTime,
-    startTimer: startTimer,
     resetAllEvents: resetAllEvents
 };
   
