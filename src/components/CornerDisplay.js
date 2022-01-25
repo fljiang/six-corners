@@ -73,7 +73,7 @@ class CornerDisplay extends Component {
                 sx={{
                     backgroundColor: "whitesmoke",
                     color: "black",
-                    fontSize: 100
+                    fontSize: 75
                 }} 
                 onClick={ this.handleStart }
             >
