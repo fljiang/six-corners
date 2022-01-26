@@ -35,7 +35,7 @@ class Navigation extends Component {
             return;
         }
 
-        const interval = parseInt(this.intervalRef.current.value) * 1000
+        const interval = (parseFloat(this.intervalRef.current.value) + 1) * 1000 - 1000;
         this.props.setInterval(interval);
         this.props.resetAllEvents();
     }

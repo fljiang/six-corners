@@ -23,7 +23,7 @@ class CornerDisplay extends Component {
         } = this.props;
         const n = Math.floor(time / interval);
 
-        if (on) {
+        if (on || interval <= 0) {
             this.props.resetAllEvents();
             return;
         }
@@ -68,7 +68,7 @@ class CornerDisplay extends Component {
     render() {
         const { corner } = this.props;
         let button;
-        if (corner == "start") {
+        if (corner === "start") {
             button = <NewButton 
                 sx={{
                     backgroundColor: "whitesmoke",
